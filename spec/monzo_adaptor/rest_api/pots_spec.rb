@@ -9,6 +9,7 @@ RSpec.describe MonzoAdaptor::RestApi::Pots do
   let(:endpoint) { "https://api.test.monzo.com" }
   let(:api_client) { MonzoAdaptor::RestApi.new(endpoint, bearer_token: "access_token") }
   let(:account_id) { "acc_00009237aqC8c5umZmrRdh" }
+  let(:pot_id) { "pot_0000778xxfgh4iu8z83nWb" }
 
   describe "#get_pots" do
     it "returns the pots associated with the given account" do
@@ -27,6 +28,22 @@ RSpec.describe MonzoAdaptor::RestApi::Pots do
           }
         ]
       )
+    end
+  end
+
+  describe "#deposit_into_pot" do
+    it "moves money from an account into a pot, form-encoding the request" do
+      stub_deposit_into_pot(pot_id)
+      response = api_client.deposit_into_pot(
+        pot_id, source_account_id: account_id, amount: 550_100, dedupe_id: "dedupe_1"
+      )
+
+      expect(response.parsed_content).to include("id" => "pot_00009exampleP0tOxWb", "balance" => 550_100)
+      expect(WebMock).to have_requested(:put, "#{endpoint}/pots/#{pot_id}/deposit")
+        .with(
+          body: { "source_account_id" => account_id, "amount" => "550100", "dedupe_id" => "dedupe_1" },
+          headers: { "Content-Type" => "application/x-www-form-urlencoded" }
+        )
     end
   end
 end
