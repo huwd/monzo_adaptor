@@ -17,6 +17,24 @@ module MonzoAdaptor
         query = "?#{query}" unless query.empty?
         get_json("#{endpoint}/transactions/#{CGI.escape(transaction_id)}#{query}")
       end
+
+      # Retrieve the transactions on an account
+      #
+      # Note (per the docs): after 5 minutes from authentication, only the
+      # last 90 days of transactions can be synced — fetch and store the
+      # full history immediately after authenticating if you need it all.
+      #
+      # @param [String] account_id The account to retrieve transactions from
+      # @param [String, nil] since RFC3339 timestamp or object id
+      # @param [String, nil] before RFC3339 timestamp
+      # @param [Integer, nil] limit Results per page (default 30, max 100)
+      #
+      # @return [Hash] the list of transactions
+      def get_transactions(account_id, since: nil, before: nil, limit: nil)
+        params = { account_id: account_id, since: since, before: before, limit: limit }.compact
+        query = params.map { |key, value| "#{key}=#{CGI.escape(value.to_s)}" }.join("&")
+        get_json("#{endpoint}/transactions?#{query}")
+      end
     end
   end
 end
