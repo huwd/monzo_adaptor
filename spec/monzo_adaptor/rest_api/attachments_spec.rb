@@ -22,4 +22,26 @@ RSpec.describe MonzoAdaptor::RestApi::Attachments do
         )
     end
   end
+
+  describe "#register_attachment" do
+    it "registers an uploaded attachment against a transaction, form-encoding the request" do
+      stub_register_attachment
+      response = api_client.register_attachment(
+        external_id: "tx_00008zIcpb1TB4yeIFXMzx",
+        file_url: "https://s3-eu-west-1.amazonaws.com/mondo-image-uploads/foo.png",
+        file_type: "image/png"
+      )
+
+      expect(response.parsed_content["attachment"]).to include("id" => "attach_00009238aOAIvVqfb9LrZh")
+      expect(WebMock).to have_requested(:post, "#{endpoint}/attachment/register")
+        .with(
+          body: {
+            "external_id" => "tx_00008zIcpb1TB4yeIFXMzx",
+            "file_url" => "https://s3-eu-west-1.amazonaws.com/mondo-image-uploads/foo.png",
+            "file_type" => "image/png"
+          },
+          headers: { "Content-Type" => "application/x-www-form-urlencoded" }
+        )
+    end
+  end
 end
