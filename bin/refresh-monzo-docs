@@ -17,6 +17,7 @@ require "fileutils"
 TRACKED_FILES = %w[
   _authentication.md
   _errors.md
+  _accounts.md
 ].freeze
 
 BASE_URL = "https://raw.githubusercontent.com/monzo/docs/master/source/includes"

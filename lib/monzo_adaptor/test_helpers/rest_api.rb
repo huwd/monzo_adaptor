@@ -12,8 +12,10 @@ module MonzoAdaptor
     module RestApi
       require_relative "rest_api/support/support"
       require_relative "rest_api/whoami"
+      require_relative "rest_api/accounts"
       include MonzoAdaptor::TestHelpers::RestApi::Support
       include MonzoAdaptor::TestHelpers::RestApi::Whoami
+      include MonzoAdaptor::TestHelpers::RestApi::Accounts
 
       # Default test endpoint for stubbed requests
       MONZO_REST_ENDPOINT = ENV["MONZO_REST_ENDPOINT"] || "https://api.test.monzo.com"
