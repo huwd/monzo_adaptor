@@ -114,7 +114,13 @@ the hash to `nil`, and silently ignores keys it doesn't model — so it's safe
 to point at a real, fuller API response rather than a purpose-built one.
 
 Available: `Account`, `Balance`, `Pot`, `Transaction`, `Merchant`,
-`Metadatum`. Field lists are ported from
+`ReceiptMerchant`, `Metadatum`. Note `Merchant` (the merchant on a
+transaction) and `ReceiptMerchant` (the merchant info attached to a
+receipt) are deliberately separate classes — Monzo's own docs call out
+that they're different shapes, and the two barely overlap (`name` and
+`online` are the only fields in common).
+
+Field lists are ported from
 [`huwd/monzo_api`](https://github.com/huwd/monzo_api), an earlier gem that
 reverse-engineered Monzo's real JSON shapes (particularly `Metadatum`'s ~80
 fields) over years of use, rather than re-derived from Monzo's public docs,
