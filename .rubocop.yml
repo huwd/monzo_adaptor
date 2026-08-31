@@ -1,0 +1,39 @@
+plugins:
+  - rubocop-rake
+  - rubocop-rspec
+  - rubocop-yard
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  Exclude:
+    - "bin/**/*"
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false

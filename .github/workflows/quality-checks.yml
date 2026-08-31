@@ -1,0 +1,59 @@
+name: Quality checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint with RuboCop
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby: ["3.3", "3.4", "4.0"]
+
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          show-progress: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@d45b1a4e94b71acab930e56e79c6aa188764e7f9 # v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+
+  unit-test:
+    name: Unit tests with RSpec
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby: ["3.3", "3.4", "4.0"]
+
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@d45b1a4e94b71acab930e56e79c6aa188764e7f9 # v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Run RSpec
+        run: bundle exec rspec
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: coverage-report-${{ matrix.ruby }}
+          path: coverage/
+          if-no-files-found: ignore
