@@ -30,6 +30,15 @@ module MonzoAdaptor
       def get_receipt(external_id)
         get_json("#{endpoint}/transaction-receipts?external_id=#{CGI.escape(external_id)}")
       end
+
+      # Delete a receipt, by its external_id
+      #
+      # @param [String] external_id The external ID of the receipt
+      #
+      # @return [ApiAdaptor::Response] an empty response on success
+      def delete_receipt(external_id)
+        delete_json("#{endpoint}/transaction-receipts?external_id=#{CGI.escape(external_id)}")
+      end
     end
   end
 end

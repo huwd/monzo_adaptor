@@ -38,4 +38,11 @@ RSpec.describe MonzoAdaptor::RestApi::Receipts do
       )
     end
   end
+
+  describe "#delete_receipt" do
+    it "deletes a receipt by its external_id" do
+      stub_delete_receipt("test-receipt-1")
+      expect(api_client.delete_receipt("test-receipt-1").parsed_content).to eq({})
+    end
+  end
 end

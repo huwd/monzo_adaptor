@@ -53,6 +53,24 @@ module MonzoAdaptor
             response_body: response_body || { receipt: { id: "receipt_00009eNJqNeJvKeoQA", external_id: external_id } }
           )
         end
+
+        ###############################
+        # DELETE /transaction-receipts
+        ###############################
+
+        # Stub a successful receipt deletion
+        #
+        # @param external_id [String] the receipt's external ID
+        # @param response_body [Hash, nil] Optional response body
+        #
+        # @return [WebMock::RequestStub]
+        def stub_delete_receipt(external_id, response_body: nil)
+          stub_rest_api_request(
+            :delete,
+            "/transaction-receipts?external_id=#{external_id}",
+            response_body: response_body || load_doc_example("_receipts.md", "Delete receipt")
+          )
+        end
       end
     end
   end
