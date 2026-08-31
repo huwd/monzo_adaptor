@@ -16,11 +16,13 @@ module MonzoAdaptor
     require_relative "rest_api/balance"
     require_relative "rest_api/pots"
     require_relative "rest_api/transactions"
+    require_relative "rest_api/feed_items"
     include MonzoAdaptor::RestApi::Whoami
     include MonzoAdaptor::RestApi::Accounts
     include MonzoAdaptor::RestApi::Balance
     include MonzoAdaptor::RestApi::Pots
     include MonzoAdaptor::RestApi::Transactions
+    include MonzoAdaptor::RestApi::FeedItems
 
     # HTTP status -> Monzo-flavoured exception, layered on top of the
     # generic status-code exceptions ApiAdaptor::Base's HTTP methods

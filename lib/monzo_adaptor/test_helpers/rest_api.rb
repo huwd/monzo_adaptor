@@ -16,12 +16,14 @@ module MonzoAdaptor
       require_relative "rest_api/balance"
       require_relative "rest_api/pots"
       require_relative "rest_api/transactions"
+      require_relative "rest_api/feed_items"
       include MonzoAdaptor::TestHelpers::RestApi::Support
       include MonzoAdaptor::TestHelpers::RestApi::Whoami
       include MonzoAdaptor::TestHelpers::RestApi::Accounts
       include MonzoAdaptor::TestHelpers::RestApi::Balance
       include MonzoAdaptor::TestHelpers::RestApi::Pots
       include MonzoAdaptor::TestHelpers::RestApi::Transactions
+      include MonzoAdaptor::TestHelpers::RestApi::FeedItems
 
       # Default test endpoint for stubbed requests
       MONZO_REST_ENDPOINT = ENV["MONZO_REST_ENDPOINT"] || "https://api.test.monzo.com"
