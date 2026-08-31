@@ -7,6 +7,9 @@ module MonzoAdaptor
   #
   # @see https://docs.monzo.com/
   class RestApi < ApiAdaptor::Base
+    require_relative "rest_api/whoami"
+    include MonzoAdaptor::RestApi::Whoami
+
     # HTTP status -> Monzo-flavoured exception, layered on top of the
     # generic status-code exceptions ApiAdaptor::Base's HTTP methods
     # already raise.
