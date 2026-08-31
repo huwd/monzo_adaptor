@@ -43,6 +43,24 @@ module MonzoAdaptor
             response_body: response_body || load_doc_example("_webhooks.md", "List webhooks")
           )
         end
+
+        ###############################
+        # DELETE /webhooks/:webhook_id
+        ###############################
+
+        # Stub a successful webhook deletion
+        #
+        # @param webhook_id [String] the webhook ID
+        # @param response_body [Hash, nil] Optional response body
+        #
+        # @return [WebMock::RequestStub]
+        def stub_delete_webhook(webhook_id, response_body: nil)
+          stub_rest_api_request(
+            :delete,
+            "/webhooks/#{webhook_id}",
+            response_body: response_body || load_doc_example("_webhooks.md", "Deleting a webhook")
+          )
+        end
       end
     end
   end

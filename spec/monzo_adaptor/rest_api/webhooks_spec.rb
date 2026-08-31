@@ -32,4 +32,11 @@ RSpec.describe MonzoAdaptor::RestApi::Webhooks do
       expect(webhooks.map { |w| w["id"] }).to eq(%w[webhook_000091yhhOmrXQaVZ1Irsv webhook_000091yhhzvJSxLYGAceC9])
     end
   end
+
+  describe "#delete_webhook" do
+    it "deletes the given webhook" do
+      stub_delete_webhook("webhook_000091yhhOmrXQaVZ1Irsv")
+      expect(api_client.delete_webhook("webhook_000091yhhOmrXQaVZ1Irsv").parsed_content).to eq({})
+    end
+  end
 end
