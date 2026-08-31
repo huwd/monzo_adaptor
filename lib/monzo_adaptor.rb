@@ -12,3 +12,4 @@ end
 require_relative "monzo_adaptor/errors"
 require_relative "monzo_adaptor/rest_api"
 require_relative "monzo_adaptor/oauth"
+require_relative "monzo_adaptor/resources"
