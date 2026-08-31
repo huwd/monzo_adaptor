@@ -25,6 +25,7 @@ TRACKED_FILES = %w[
   _feed_items.md
   _attachments.md
   _receipts.md
+  _webhooks.md
 ].freeze
 
 BASE_URL = "https://raw.githubusercontent.com/monzo/docs/master/source/includes"
