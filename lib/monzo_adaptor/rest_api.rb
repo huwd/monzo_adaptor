@@ -66,6 +66,11 @@ module MonzoAdaptor
       form_request(:post, url, params)
     end
 
+    # @see #put_form
+    def patch_form(url, params)
+      form_request(:patch, url, params)
+    end
+
     def form_request(method, url, params)
       ApiAdaptor::Response.new(RestClient.send(method, url, params))
     rescue RestClient::ExceptionWithResponse => e

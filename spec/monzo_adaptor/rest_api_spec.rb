@@ -34,6 +34,18 @@ RSpec.describe MonzoAdaptor::RestApi do
     end
   end
 
+  describe "#patch_form" do
+    it "sends a form-encoded PATCH and returns a Response-like object" do
+      stub_request(:patch, "#{endpoint}/transactions/tx_123")
+        .with(body: { "metadata" => { "foo" => "bar" } }, headers: { "Content-Type" => "application/x-www-form-urlencoded" })
+        .to_return(status: 200, body: { transaction: { id: "tx_123" } }.to_json)
+
+      response = api_client.send(:patch_form, "#{endpoint}/transactions/tx_123", "metadata[foo]": "bar")
+
+      expect(response.parsed_content).to eq("transaction" => { "id" => "tx_123" })
+    end
+  end
+
   describe "#put_form and #post_form" do
     it "sends a form-encoded PUT and returns a Response-like object" do
       stub_request(:put, "#{endpoint}/pots/pot_123/deposit")
