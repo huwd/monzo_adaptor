@@ -45,4 +45,18 @@ RSpec.describe MonzoAdaptor::RestApi::Transactions do
         .with(query: { "account_id" => account_id, "since" => "2020-01-01T00:00:00Z", "before" => "2020-02-01T00:00:00Z", "limit" => "50" })
     end
   end
+
+  describe "#annotate_transaction" do
+    it "sets metadata keys on a transaction, form-encoding the request" do
+      stub_annotate_transaction(transaction_id)
+      response = api_client.annotate_transaction(transaction_id, metadata: { "foo" => "bar" })
+
+      expect(response.parsed_content["transaction"]).to include("id" => "tx_00008zL2INM3xZ41THuRF3")
+      expect(WebMock).to have_requested(:patch, "#{endpoint}/transactions/#{transaction_id}")
+        .with(
+          body: { "metadata" => { "foo" => "bar" } },
+          headers: { "Content-Type" => "application/x-www-form-urlencoded" }
+        )
+    end
+  end
 end

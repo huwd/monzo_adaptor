@@ -35,6 +35,20 @@ module MonzoAdaptor
         query = params.map { |key, value| "#{key}=#{CGI.escape(value.to_s)}" }.join("&")
         get_json("#{endpoint}/transactions?#{query}")
       end
+
+      # Store key-value annotations against a transaction's metadata
+      #
+      # Metadata is private to your application. Setting a key's value to
+      # an empty string deletes it. Setting the "notes" key updates the
+      # transaction's top-level notes property.
+      #
+      # @param [String] transaction_id The id of the transaction to annotate
+      # @param [Hash] metadata Metadata keys to set (or delete, with "")
+      #
+      # @return [ApiAdaptor::Response] the updated transaction
+      def annotate_transaction(transaction_id, metadata:)
+        patch_form("#{endpoint}/transactions/#{CGI.escape(transaction_id)}", metadata: metadata)
+      end
     end
   end
 end

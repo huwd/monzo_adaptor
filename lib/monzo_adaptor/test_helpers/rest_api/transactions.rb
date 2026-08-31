@@ -88,6 +88,24 @@ module MonzoAdaptor
             ]
           }
         end
+
+        ###############################
+        # PATCH /transactions/:transaction_id
+        ###############################
+
+        # Stub a successful transaction annotation
+        #
+        # @param transaction_id [String] the transaction ID
+        # @param response_body [Hash, nil] Optional response body
+        #
+        # @return [WebMock::RequestStub]
+        def stub_annotate_transaction(transaction_id, response_body: nil)
+          stub_rest_api_request(
+            :patch,
+            "/transactions/#{transaction_id}",
+            response_body: response_body || load_doc_example("_transactions.md", "Annotate transaction")
+          )
+        end
       end
     end
   end
