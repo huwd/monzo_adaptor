@@ -5,6 +5,7 @@ require_relative "resources/account"
 require_relative "resources/balance"
 require_relative "resources/pot"
 require_relative "resources/merchant"
+require_relative "resources/metadatum"
 
 module MonzoAdaptor
   # Optional, opt-in typed value objects wrapping the Hashes that
