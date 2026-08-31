@@ -28,4 +28,14 @@ RSpec.describe MonzoAdaptor::RestApi::Receipts do
         .with(body: receipt.transform_keys(&:to_s), headers: { "Content-Type" => "application/json" })
     end
   end
+
+  describe "#get_receipt" do
+    it "retrieves a receipt by its external_id" do
+      stub_get_receipt("test-receipt-1")
+      expect(api_client.get_receipt("test-receipt-1").parsed_content["receipt"]).to include(
+        "id" => "receipt_00009eNJqNeJvKeoQA",
+        "external_id" => "test-receipt-1"
+      )
+    end
+  end
 end

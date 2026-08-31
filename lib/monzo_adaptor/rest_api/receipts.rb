@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "cgi"
+
 module MonzoAdaptor
   class RestApi
     # https://docs.monzo.com/#receipts
@@ -18,6 +20,15 @@ module MonzoAdaptor
       # @return [Hash] the created receipt_id
       def create_receipt(receipt)
         put_json("#{endpoint}/transaction-receipts", receipt)
+      end
+
+      # Retrieve a receipt you created, by its external_id
+      #
+      # @param [String] external_id The external ID of the receipt
+      #
+      # @return [Hash] the receipt
+      def get_receipt(external_id)
+        get_json("#{endpoint}/transaction-receipts?external_id=#{CGI.escape(external_id)}")
       end
     end
   end

@@ -31,6 +31,28 @@ module MonzoAdaptor
             response_body: response_body || { receipt_id: "receipt_00009NrKwNtI3gKqte" }
           )
         end
+
+        ###############################
+        # GET /transaction-receipts
+        ###############################
+
+        # Stub a successful receipt retrieval
+        #
+        # "Retrieve receipt"'s JSON example also contains a literal "..."
+        # placeholder (see #stub_create_receipt), so this is hand-written
+        # too, rather than loaded via load_doc_example.
+        #
+        # @param external_id [String] the receipt's external ID
+        # @param response_body [Hash, nil] Optional response body
+        #
+        # @return [WebMock::RequestStub]
+        def stub_get_receipt(external_id, response_body: nil)
+          stub_rest_api_request(
+            :get,
+            "/transaction-receipts?external_id=#{external_id}",
+            response_body: response_body || { receipt: { id: "receipt_00009eNJqNeJvKeoQA", external_id: external_id } }
+          )
+        end
       end
     end
   end
