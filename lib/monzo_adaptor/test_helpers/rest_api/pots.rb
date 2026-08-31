@@ -44,6 +44,24 @@ module MonzoAdaptor
             response_body: response_body || load_doc_example("_pots.md", "Deposit into a pot")
           )
         end
+
+        ###############################
+        # PUT /pots/:pot_id/withdraw
+        ###############################
+
+        # Stub a successful pot withdrawal
+        #
+        # @param pot_id [String] the pot ID
+        # @param response_body [Hash, nil] Optional response body
+        #
+        # @return [WebMock::RequestStub]
+        def stub_withdraw_from_pot(pot_id, response_body: nil)
+          stub_rest_api_request(
+            :put,
+            "/pots/#{pot_id}/withdraw",
+            response_body: response_body || load_doc_example("_pots.md", "Withdraw from a pot")
+          )
+        end
       end
     end
   end

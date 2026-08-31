@@ -46,4 +46,20 @@ RSpec.describe MonzoAdaptor::RestApi::Pots do
         )
     end
   end
+
+  describe "#withdraw_from_pot" do
+    it "moves money from a pot into an account, form-encoding the request" do
+      stub_withdraw_from_pot(pot_id)
+      response = api_client.withdraw_from_pot(
+        pot_id, destination_account_id: account_id, amount: 350_000, dedupe_id: "dedupe_2"
+      )
+
+      expect(response.parsed_content).to include("id" => "pot_00009exampleP0tOxWb", "balance" => 350_000)
+      expect(WebMock).to have_requested(:put, "#{endpoint}/pots/#{pot_id}/withdraw")
+        .with(
+          body: { "destination_account_id" => account_id, "amount" => "350000", "dedupe_id" => "dedupe_2" },
+          headers: { "Content-Type" => "application/x-www-form-urlencoded" }
+        )
+    end
+  end
 end

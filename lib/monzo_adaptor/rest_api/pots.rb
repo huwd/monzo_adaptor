@@ -29,6 +29,21 @@ module MonzoAdaptor
           source_account_id: source_account_id, amount: amount, dedupe_id: dedupe_id
         )
       end
+
+      # Move money from a pot into an account
+      #
+      # @param [String] pot_id The id of the pot to withdraw from
+      # @param [String] destination_account_id The id of the account to deposit into
+      # @param [Integer] amount The amount to withdraw, in minor units
+      # @param [String] dedupe_id A unique string used to de-duplicate withdrawals
+      #
+      # @return [ApiAdaptor::Response] the updated pot
+      def withdraw_from_pot(pot_id, destination_account_id:, amount:, dedupe_id:)
+        put_form(
+          "#{endpoint}/pots/#{CGI.escape(pot_id)}/withdraw",
+          destination_account_id: destination_account_id, amount: amount, dedupe_id: dedupe_id
+        )
+      end
     end
   end
 end
