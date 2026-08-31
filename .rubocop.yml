@@ -43,7 +43,9 @@ RSpec/DescribeClass:
     - "spec/contract/**/*"
 
 RSpec/SpecFilePathFormat:
-  # OAuth reads more naturally as one word than the cop's literal
-  # capital-letter-per-underscore transform (o_auth_spec.rb) would suggest.
   Exclude:
+    # OAuth reads more naturally as one word than the cop's literal
+    # capital-letter-per-underscore transform (o_auth_spec.rb) would suggest.
     - "spec/monzo_adaptor/oauth_spec.rb"
+    # Covers MonzoErrorDetails plus the two classes that include it.
+    - "spec/monzo_adaptor/errors_spec.rb"
