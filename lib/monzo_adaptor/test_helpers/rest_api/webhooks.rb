@@ -25,6 +25,24 @@ module MonzoAdaptor
             response_body: response_body || load_doc_example("_webhooks.md", "Registering a webhook")
           )
         end
+
+        ###############
+        # GET /webhooks
+        ###############
+
+        # Stub a successful webhooks list
+        #
+        # @param account_id [String] the account ID
+        # @param response_body [Hash, nil] Optional response body
+        #
+        # @return [WebMock::RequestStub]
+        def stub_get_webhooks(account_id, response_body: nil)
+          stub_rest_api_request(
+            :get,
+            "/webhooks?account_id=#{account_id}",
+            response_body: response_body || load_doc_example("_webhooks.md", "List webhooks")
+          )
+        end
       end
     end
   end

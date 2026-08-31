@@ -23,4 +23,13 @@ RSpec.describe MonzoAdaptor::RestApi::Webhooks do
         )
     end
   end
+
+  describe "#get_webhooks" do
+    it "returns the webhooks registered on the given account" do
+      stub_get_webhooks(account_id)
+      webhooks = api_client.get_webhooks(account_id).parsed_content["webhooks"]
+
+      expect(webhooks.map { |w| w["id"] }).to eq(%w[webhook_000091yhhOmrXQaVZ1Irsv webhook_000091yhhzvJSxLYGAceC9])
+    end
+  end
 end
