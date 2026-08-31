@@ -2,6 +2,7 @@
 
 require_relative "resources/from_hash"
 require_relative "resources/account"
+require_relative "resources/balance"
 
 module MonzoAdaptor
   # Optional, opt-in typed value objects wrapping the Hashes that
