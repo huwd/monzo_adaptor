@@ -44,4 +44,18 @@ RSpec.describe MonzoAdaptor::RestApi::Attachments do
         )
     end
   end
+
+  describe "#deregister_attachment" do
+    it "removes an attachment, form-encoding the request" do
+      stub_deregister_attachment
+      response = api_client.deregister_attachment("attach_00009238aOAIvVqfb9LrZh")
+
+      expect(response.parsed_content).to eq({})
+      expect(WebMock).to have_requested(:post, "#{endpoint}/attachment/deregister")
+        .with(
+          body: { "id" => "attach_00009238aOAIvVqfb9LrZh" },
+          headers: { "Content-Type" => "application/x-www-form-urlencoded" }
+        )
+    end
+  end
 end

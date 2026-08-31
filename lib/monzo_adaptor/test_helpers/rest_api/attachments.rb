@@ -42,6 +42,23 @@ module MonzoAdaptor
             response_body: response_body || load_doc_example("_attachments.md", "Register attachment")
           )
         end
+
+        ###############################
+        # POST /attachment/deregister
+        ###############################
+
+        # Stub a successful attachment deregistration
+        #
+        # @param response_body [Hash, nil] Optional response body
+        #
+        # @return [WebMock::RequestStub]
+        def stub_deregister_attachment(response_body: nil)
+          stub_rest_api_request(
+            :post,
+            "/attachment/deregister",
+            response_body: response_body || load_doc_example("_attachments.md", "Deregister attachment")
+          )
+        end
       end
     end
   end

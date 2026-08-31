@@ -31,6 +31,15 @@ module MonzoAdaptor
           external_id: external_id, file_url: file_url, file_type: file_type
         )
       end
+
+      # Remove an attachment
+      #
+      # @param [String] id The id of the attachment to deregister
+      #
+      # @return [ApiAdaptor::Response] an empty response on success
+      def deregister_attachment(id)
+        post_form("#{endpoint}/attachment/deregister", id: id)
+      end
     end
   end
 end
