@@ -41,3 +41,9 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/DescribeClass:
   Exclude:
     - "spec/contract/**/*"
+
+RSpec/SpecFilePathFormat:
+  # OAuth reads more naturally as one word than the cop's literal
+  # capital-letter-per-underscore transform (o_auth_spec.rb) would suggest.
+  Exclude:
+    - "spec/monzo_adaptor/oauth_spec.rb"

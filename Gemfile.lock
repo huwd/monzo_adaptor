@@ -3,6 +3,7 @@ PATH
   specs:
     monzo_adaptor (0.1.0)
       api_adaptor (>= 1.0.0)
+      rest-client (~> 2.1)
 
 GEM
   remote: https://rubygems.org/
