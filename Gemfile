@@ -14,7 +14,7 @@ gem "rubocop-rspec"
 gem "rubocop-yard"
 
 gem "redcarpet", "~> 3.6"
-gem "rubocop", "~> 1.89"
+gem "rubocop", "~> 1.91"
 gem "simplecov", "~> 0.22"
 gem "webmock", "~> 3.26"
 gem "yard", "~> 0.9"
